@@ -14,7 +14,7 @@ export const siteConfig = {
       "https://drive.google.com/file/d/1a6sP_y6cJ4w3dE8x_3OLyVHSOp18EV7V/view",
     github: "https://github.com/lokeswaran-aj",
     linkedin: "https://www.linkedin.com/in/lokeswaran-aj/",
-    twitter: "https://twitter.com/lokeswaran_aj",
+    twitter: "https://x.com/lokio_aj",
   },
   work: [
     {
@@ -44,6 +44,16 @@ export const siteConfig = {
     },
   ],
   project: [
+    {
+      name: "Open Fiesta",
+      link: "https://open-fiesta.com",
+      period: "Aug 2025",
+      descriptions: [
+        "Open Fiesta lets you chat with 200+ AI models like OpenAI, Gemini, Claude, Perplexity, Deepseek, and Grok in one place. Compare multiple AI model responses side-by-side in real-time and choose the best AI for every task",
+        "It is an open source project where you can bring your own API key from OpenRouter, Vercel AI Gateway or AI/ML API and access all the models",
+      ],
+      skills: "Typescript, Next.js, Tailwind CSS, Vercel AI SDK, Shadcn UI, Better Auth, Drizzle ORM",
+    },
     {
       name: "CurlGPT",
       link: "https://curlgpt.vercel.app/",
