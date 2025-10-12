@@ -13,8 +13,8 @@ This is my [personal website](https://lokeswaran.dev) built with [Next.js](https
 This application requires Next.js 14.
 
 ```bash
-git clone https://github.com/lokeswaran-aj/lokeswaran.dev.git
-cd lokeswaran.dev
+git clone https://github.com/lokeswaran-aj/lokes.dev.git
+cd lokes.dev
 pnpm install
 pnpm dev
 ```
