@@ -6,7 +6,7 @@ const BLOG_HOST = "blog.lokes.dev";
 let cachedData: { posts: BlogPost[]; timestamp: number } | null = null;
 const CACHE_DURATION = 60 * 60 * 1000;
 
-export function invalidateCache() {
+function invalidateCache() {
   console.log("[Hashnode API] Cache invalidated");
   cachedData = null;
 }
