@@ -2,11 +2,12 @@ import { NextRequest } from "next/server"
 import { ImageResponse } from "next/og"
 import { siteConfig } from "@/config/site"
 import Icons from "@/components/ui/Icons"
-export const runtime = "edge"
+import { readFile } from "node:fs/promises"
+import { join } from "node:path"
+export const runtime = "nodejs"
 
-const interFont = fetch(
-  new URL("../../../assets/fonts/inter.ttf", import.meta.url)
-).then((res) => res.arrayBuffer())
+const interFont = readFile(join(process.cwd(), "assets/fonts/inter.ttf"))
+  .then((data) => new Uint8Array(data).buffer)
 
 export async function GET(req: NextRequest) {
   try {
@@ -57,7 +58,7 @@ export async function GET(req: NextRequest) {
         ],
       }
     )
-  } catch (error) {
+  } catch {
     return new Response("Failed to generate image", { status: 500 })
   }
 }

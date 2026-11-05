@@ -8,9 +8,9 @@ const WorkExperience = () => {
   return (
     <div className="flex flex-col items-start justify-start">
       <Heading text="Work Experience" />
-      <div className="flex flex-col gap-9">
-        {work.map((item, index) => (
-          <Experience key={index} {...item} />
+      <div className="flex flex-col gap-9 w-full">
+        {work.map((item) => (
+          <Experience key={item.name + item.period} {...item} />
         ))}
       </div>
     </div>

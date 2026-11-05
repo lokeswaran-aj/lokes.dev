@@ -7,7 +7,7 @@ interface IBackButton {
 const BackButton = (props: IBackButton) => {
   const { link } = props
   return (
-    <Link href={link} className="flex items-baseline gap-2 text-gray-200 mb-14">
+    <Link href={link} className="back-link inline-flex w-fit items-center gap-2 text-muted/80 mb-14">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={15}

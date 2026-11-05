@@ -17,8 +17,8 @@ const LinkText = (props: Props) => {
       target="_blank"
       rel="noreferrer"
       className={cn(
-        className,
-        "hover:underline underline-offset-2 inline-block mr-1"
+        "inline-link relative inline-block mr-1",
+        className
       )}
     >
       <span className="block text-sm sm:text-base">

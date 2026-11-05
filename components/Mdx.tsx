@@ -13,8 +13,7 @@ const Callout = (props: { emoji: string; children: string }) => {
   )
 }
 
-function CustomLink(props: any) {
-  const href = props.href
+function CustomLink({ href = "", ...props }: React.ComponentPropsWithoutRef<"a">) {
 
   if (href.startsWith("/")) {
     return (
@@ -25,10 +24,10 @@ function CustomLink(props: any) {
   }
 
   if (href.startsWith("#")) {
-    return <a {...props} />
+    return <a href={href} {...props} />
   }
 
-  return <a target="_blank" rel="noreferrer" {...props} />
+  return <a href={href} target="_blank" rel="noreferrer" {...props} />
 }
 
 const RoundedImage = (props: ImageProps) => {
@@ -57,8 +56,8 @@ const slugify = (str: string) => {
 }
 
 const createHeading = (level: number) => {
-  const Header = ({ children }: { children: string }) => {
-    let slug = slugify(children)
+  const Header = ({ children }: { children?: React.ReactNode }) => {
+    const slug = slugify(headingText(children))
     return React.createElement(
       `h${level}`,
       { id: slug, className: "hover:underline underline-offset-2" },
@@ -73,6 +72,16 @@ const createHeading = (level: number) => {
     )
   }
   return Header
+}
+
+function headingText(children: React.ReactNode): string {
+  return React.Children.toArray(children).map((child) => {
+    if (typeof child === "string" || typeof child === "number") return String(child)
+    if (React.isValidElement<{ children?: React.ReactNode }>(child)) {
+      return headingText(child.props.children)
+    }
+    return ""
+  }).join("")
 }
 
 const components = {
@@ -91,7 +100,7 @@ const rehypePrettyCodeOptions: Options = {
   theme: "one-dark-pro",
 }
 
-const CustomMDX = (props: any) => {
+const CustomMDX = (props: React.ComponentProps<typeof MDXRemote>) => {
   return (
     <MDXRemote
       {...props}

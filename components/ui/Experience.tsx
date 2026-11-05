@@ -13,7 +13,7 @@ interface IProps {
 const Experience = (props: IProps) => {
   const { period, link, name, location, descriptions, skills } = props
   return (
-    <article className="sm:flex flex-row">
+    <article className="experience-entry sm:flex flex-row">
       <div>
         <p className="text-muted/80 text-sm sm:w-40 sm:mr-4 mb-2 sm:mb-0 tabular-nums">{period}</p>
       </div>

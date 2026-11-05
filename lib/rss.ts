@@ -6,8 +6,8 @@ export type BlogPost = {
   guid: string;
 };
 
-export async function fetchBlogPosts(): Promise<BlogPost[]> {
-  const response = await fetch("/api/rss");
+export async function fetchBlogPosts(signal?: AbortSignal): Promise<BlogPost[]> {
+  const response = await fetch("/api/rss", { signal });
 
   if (!response.ok) {
     throw new Error(`Failed to fetch blog posts: HTTP ${response.status}`);

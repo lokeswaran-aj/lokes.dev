@@ -65,11 +65,12 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang='en'>
+    <html lang='en' suppressHydrationWarning>
       <body
         className={cn(
           'antialiased bg-background text-text max-w-2xl  mx-12 sm:mx-auto',
           GeistSans.className,
+          GeistSans.variable,
           FiraCode.variable
         )}
       >

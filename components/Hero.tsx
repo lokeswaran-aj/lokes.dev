@@ -22,14 +22,22 @@ const Hero = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-start">
-        <Image
-          src={myImage}
-          width={64}
-          height={64}
-          alt={name}
-          className="rounded-full mb-3"
-          priority
-        />
+        <div className="mb-3">
+          <div className="portrait-motion relative size-16">
+            <span className="portrait-orbit" aria-hidden="true" />
+            <Image
+              src={myImage}
+              width={64}
+              height={64}
+              alt={name}
+              className="relative rounded-full"
+              priority
+            />
+            <span className="voice-accent" aria-hidden="true">
+              <span /><span /><span /><span /><span />
+            </span>
+          </div>
+        </div>
         <h1 className="text-xl font-bold text-balance text-center">{name}</h1>
         <p className="text-lg font-medium text-muted/80 text-center text-balance">
           {role}

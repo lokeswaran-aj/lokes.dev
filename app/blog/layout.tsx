@@ -1,5 +1,4 @@
 import type { Metadata } from "next"
-import BackButton from "@/components/ui/BackButton"
 
 export const metadata: Metadata = {
   title: "Blogs",

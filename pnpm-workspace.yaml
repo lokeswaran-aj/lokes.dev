@@ -1,0 +1,9 @@
+overrides:
+  # Patched compatible parser for typography's exact dependency pin.
+  '@tailwindcss/typography>postcss-selector-parser': 6.1.5
+  # Fixed glob parsing; consumers already use the modern named-export API.
+  'minimatch@>=7.0.0 <11.0.1': 11.0.4
+
+minimumReleaseAgeExclude:
+  - '@vercel/speed-insights@2.1.0'
+  - lucide-react@1.69.0

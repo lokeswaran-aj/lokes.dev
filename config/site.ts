@@ -3,7 +3,7 @@ export const siteConfig = {
   role: "AI Engineer • Voice AI & LLM Agents",
   description:
     "AI Engineer at Gnani AI. I build and operate voice AI products, multilingual agents, and the systems behind them. Previously at Thoughtworks.",
-  myImage: "/lokeswaran.jpeg",
+  myImage: "/lokeswaran-avatar.png",
   author: "Lokeswaran Aruljothy",
   currentCompany: "Gnani AI",
   currentCompanyImage: "/gnani-ai-logo.png",
