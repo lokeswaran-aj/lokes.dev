@@ -44,5 +44,11 @@
     "postcss": "^8.5.32",
     "tailwindcss": "^4.3.4",
     "typescript": "npm:@typescript/typescript6@^6.0.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@tailwindcss/typography>postcss-selector-parser": "6.1.5",
+      "minimatch@>=7.0.0 <11.0.1": "11.0.4"
+    }
   }
 }
