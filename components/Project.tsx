@@ -6,7 +6,7 @@ import Experience from "./ui/Experience"
 const Project = () => {
   return (
     <div className="flex flex-col items-start justify-start">
-      <Heading text="Project" />
+      <Heading text="Projects & open source" />
       <div className="flex flex-col gap-9">
         {siteConfig.project.map((item, index) => (
           <Experience key={index} {...item} />

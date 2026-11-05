@@ -5,17 +5,29 @@ import Heading from "@/components/ui/Heading";
 import Icons from "@/components/ui/Icons";
 import { fetchBlogPosts, formatDate, type BlogPost } from "@/lib/rss";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 export default function Blog() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  const loadPosts = useCallback(async () => {
+    setLoading(true);
+    setError(false);
+    try {
+      setPosts(await fetchBlogPosts());
+    } catch (error) {
+      console.error("[RSS] Error loading blog posts:", error);
+      setError(true);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
 
   useEffect(() => {
-    fetchBlogPosts()
-      .then(setPosts)
-      .finally(() => setLoading(false));
-  }, []);
+    void loadPosts();
+  }, [loadPosts]);
 
   return (
     <div>
@@ -42,6 +54,19 @@ export default function Blog() {
               <div className="h-3 bg-muted/20 rounded w-24"></div>
             </div>
           ))}
+        </div>
+      ) : error ? (
+        <div>
+          <p role="alert" className="text-muted">
+            Couldn&apos;t load blog posts. Please try again.
+          </p>
+          <button
+            type="button"
+            onClick={loadPosts}
+            className="mt-2 text-primary underline underline-offset-2"
+          >
+            Retry loading posts
+          </button>
         </div>
       ) : posts.length === 0 ? (
         <p className="text-muted">No posts yet. Check back soon!</p>

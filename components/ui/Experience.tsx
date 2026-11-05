@@ -13,17 +13,17 @@ interface IProps {
 const Experience = (props: IProps) => {
   const { period, link, name, location, descriptions, skills } = props
   return (
-    <div className="sm:flex flex-row">
+    <article className="sm:flex flex-row">
       <div>
-        <p className="text-muted/80 text-sm w-36 mr-4">{period}</p>
+        <p className="text-muted/80 text-sm sm:w-40 sm:mr-4 mb-2 sm:mb-0 tabular-nums">{period}</p>
       </div>
       <div className="flex-1">
         <div className="mb-4">
-          <LinkText href={link} text={name} className="text-base font-medium" />
-          <p className="text-muted/80 text-sm">{location}</p>
+          <h3><LinkText href={link} text={name} className="text-base font-medium" /></h3>
+          {location && <p className="text-muted/80 text-sm">{location}</p>}
         </div>
         <div className="mb-4">
-          <ul className="list-none text-sm ">
+          <ul className="list-disc pl-4 text-sm leading-relaxed text-pretty">
             {descriptions.map((description, index) => (
               <li className="pb-2" key={index}>
                 {description}
@@ -32,10 +32,10 @@ const Experience = (props: IProps) => {
           </ul>
         </div>
         <div className="text-sm">
-          skills: <span className="text-muted/80">{skills}</span>
+          Skills: <span className="text-muted/80">{skills}</span>
         </div>
       </div>
-    </div>
+    </article>
   )
 }
 

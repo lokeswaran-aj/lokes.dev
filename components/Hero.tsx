@@ -1,12 +1,11 @@
 import { siteConfig } from "@/config/site"
 import Image from "next/image"
-import Link from "next/link"
 import React from "react"
-import BadgeAnimatedGradientBorder from "./ui/BadgeAnimatedGradientBorder"
 import LinkText from "./ui/LinkText"
 import Heading from "./ui/Heading"
 import LogoLinks from "./ui/LogoLink"
 import Email from "./ui/email"
+import BadgeAnimatedGradientBorder from "./ui/BadgeAnimatedGradientBorder"
 
 const Hero = () => {
   const {
@@ -15,9 +14,10 @@ const Hero = () => {
     currentCompany,
     currentCompanyImage,
     currentCompanyUrl,
+    previousCompany,
+    currentProduct,
     myImage,
     links,
-    email,
   } = siteConfig
   return (
     <>
@@ -30,34 +30,52 @@ const Hero = () => {
           className="rounded-full mb-3"
           priority
         />
-        <p className="text-xl font-bold">{name}</p>
-        <p className="text-lg font-medium text-muted/80">{role}</p>
+        <h1 className="text-xl font-bold text-balance text-center">{name}</h1>
+        <p className="text-lg font-medium text-muted/80 text-center text-balance">
+          {role}
+        </p>
         <div className="mt-3">
           <LogoLinks />
         </div>
       </div>
       <div className="mt-14">
         <Heading text="About me" />
-        <div className="text-muted/80">
+        <div className="space-y-4 text-muted/80 leading-relaxed text-pretty">
           <p>
-            I&apos;m a software engineer, ambitious and open source enthusiast.
-            I currently{" "}
-            <Link
-              href={"/work"}
-              className="text-primary hover:underline underline-offset-2 cursor-pointer"
-            >
-              work
-            </Link>{" "}
-            at{" "}
+            I&apos;m an AI Engineer at{" "}
             <BadgeAnimatedGradientBorder
               href={currentCompanyUrl}
               imageUrl={currentCompanyImage}
               imageAlt={currentCompany}
               text={currentCompany}
             />{" "}
-            where I build web applications and contribute to open source.
+            building voice AI products, from the conversation itself to the
+            systems that keep it running.
           </p>
-          <p>I am passionate about Web development and Generative AI.</p>
+          <p>
+            I built and launched{" "}
+            <LinkText
+              href={currentProduct.url}
+              text={currentProduct.name}
+              className="text-primary"
+            />
+            , a multilingual AI astrology product that has reached 1.1M+ unique
+            callers. My work connects voice agents, personalized tools, and
+            persistent memory with the APIs and background processing behind them.
+          </p>
+          <p>
+            Before that, I spent four years at{" "}
+            <BadgeAnimatedGradientBorder
+              href={previousCompany.url}
+              imageUrl={previousCompany.image}
+              imageAlt={previousCompany.name}
+              text={previousCompany.name}
+            />{" "}
+            building payment
+            systems, modernizing commerce platforms, and helping teams bring AI
+            agents into software delivery. I still learn by shipping, through
+            open-source projects and hackathons.
+          </p>
         </div>
       </div>
       <div className="mt-14">

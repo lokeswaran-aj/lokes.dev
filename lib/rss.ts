@@ -7,20 +7,17 @@ export type BlogPost = {
 };
 
 export async function fetchBlogPosts(): Promise<BlogPost[]> {
-  try {
-    const response = await fetch("/api/rss");
+  const response = await fetch("/api/rss");
 
-    if (!response.ok) {
-      console.error(`[RSS] Failed to fetch: ${response.status}`);
-      return [];
-    }
-
-    const posts = await response.json();
-    return Array.isArray(posts) ? posts : [];
-  } catch (error) {
-    console.error("[RSS] Error fetching posts:", error);
-    return [];
+  if (!response.ok) {
+    throw new Error(`Failed to fetch blog posts: HTTP ${response.status}`);
   }
+
+  const posts = await response.json();
+  if (!Array.isArray(posts)) {
+    throw new Error("Invalid blog posts response");
+  }
+  return posts;
 }
 
 export function formatDate(dateString: string): string {

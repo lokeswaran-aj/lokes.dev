@@ -1,13 +1,22 @@
 export const siteConfig = {
   name: "Lokeswaran Aruljothy",
-  role: "Senior Software Engineer • AI & Full-Stack",
+  role: "AI Engineer • Voice AI & LLM Agents",
   description:
-    "Building AI-native platforms, 0→1 products, and high-impact engineering systems.",
+    "AI Engineer at Gnani AI. I build and operate voice AI products, multilingual agents, and the systems behind them. Previously at Thoughtworks.",
   myImage: "/lokeswaran.jpeg",
   author: "Lokeswaran Aruljothy",
-  currentCompany: "Thoughtworks",
-  currentCompanyImage: "/thoughtworks-logo.png",
-  currentCompanyUrl: "https://www.thoughtworks.com",
+  currentCompany: "Gnani AI",
+  currentCompanyImage: "/gnani-ai-logo.png",
+  currentCompanyUrl: "https://www.gnani.ai",
+  previousCompany: {
+    name: "Thoughtworks",
+    image: "/thoughtworks-logo.png",
+    url: "https://www.thoughtworks.com",
+  },
+  currentProduct: {
+    name: "GyaaniJyotish",
+    url: "https://gyaanijyotish.com",
+  },
   email: "lokeswaranaruljothy@gmail.com",
   links: {
     url: "https://lokes.dev",
@@ -20,17 +29,26 @@ export const siteConfig = {
 
   work: [
     {
+      name: "AI Engineer at Gnani AI",
+      link: "https://www.gnani.ai",
+      period: "Jun 2026 – Present",
+      descriptions: [
+        "Built and launched GyaaniJyotish, a multilingual voice AI product for personalized astrology conversations. Own the product from architecture and full-stack development through deployment and day-to-day operations.",
+        "Connected voice agents to personalized MCP tools and persistent memory, supporting 1.1M+ unique callers and 127K+ calls lasting at least five minutes.",
+        "Separated API and MCP workloads and built durable background processing with PostgreSQL and Redis. The application handled 790K+ call attempts in a peak day and 2.1M+ answered calls overall.",
+      ],
+      skills:
+        "Voice AI, LLM Agents, MCP, Python, FastAPI, TypeScript, Next.js, PostgreSQL, Redis, Docker",
+    },
+    {
       name: "Senior Software Engineer at Thoughtworks",
       link: "https://www.thoughtworks.com",
-      period: "Sep 2025 – Present",
+      period: "Sep 2025 – Apr 2026",
       location: "Remote, IN",
       descriptions: [
-        "Leading development of an AI-native SDLC automation platform enabling autonomous agents to translate product intent into code.",
-        "Designed and built the Specification + MCP workflow, enabling teams to generate business and technical specs using AI in the browser and consume them directly in AI IDEs for agent-driven code execution.",
-        "Created architectural patterns that connect reasoning agents, enterprise tools, and delivery pipelines to enable continuous ideation → design → implementation flows.",
-        "Shipped the platform's first internal release, now adopted by 2 product teams at Thoughtworks.",
-        "Mentoring and guiding 4 engineers through solutioning, pairing, and unblock sessions, improving team velocity and technical alignment.",
-        "Working across LLMs, RAG, vector search, structured actions, orchestration graphs, and developer experience tooling."
+        "Led the Specification + MCP workflow for an AI-native software delivery platform: teams authored business and technical specifications in the browser, then made that context available to coding agents in their IDEs.",
+        "Helped deliver the first internal release, adopted by two product teams at Thoughtworks.",
+        "Provided technical leadership to four engineers through architecture discussions, pairing, and implementation support.",
       ],
       skills:
         "AI Agents, MCP, LangGraph, Typescript, Next.js, Vercel AI SDK, RAG, Postgres, AWS, Docker",
@@ -42,12 +60,9 @@ export const siteConfig = {
       period: "Jul 2022 – Aug 2025",
       location: "Remote, IN",
       descriptions: [
-        "Owned the end-to-end UPI + NetBanking payments module from architecture to production launch, supporting ₹56Cr+ in Day-1 volume with 530+ successful transactions.",
-        "Built fault-tolerant payment flows with Juspay integrations, adding consistency, retries, and error handling to reduce transaction failures.",
-        "Reduced checkout time by 80% (3 min → ~40 sec) by restructuring cart workflows, optimizing APIs, and reducing payload overhead.",
-        "Led platform migration from Spryker to Medusa.js, removing legacy bottlenecks and eliminating ~$3M in annual licensing costs.",
-        "Built automated reporting tooling reducing turnaround from multiple days to under 5 minutes, eliminating repetitive manual work for 10+ engineers across 5 squads.",
-        "Collaborated with designers, PMs, and stakeholders to align roadmap priorities and streamline delivery."
+        "Owned the UPI and NetBanking payments service from architecture to production, supporting ₹56Cr in first-day transaction volume across 530+ successful transactions.",
+        "Integrated Juspay with fault-tolerant payment handling, bringing reliability concerns into the transaction flow from the start.",
+        "Contributed to the migration from Spryker to Medusa.js, helping the team move away from a legacy monolith and reduce annual platform licensing costs by approximately $3M.",
       ],
       skills:
         "Typescript, React, Next.js, Medusa.js, Python, Postgres, Strapi, AWS, CI/CD",
@@ -59,9 +74,8 @@ export const siteConfig = {
       period: "Feb 2022 – Jul 2022",
       location: "Remote, IN",
       descriptions: [
-        "Built secure deployment infrastructure on AWS using Nomad, Consul, and Vault, supporting multiple production applications.",
-        "Reduced deployment time by 75% through CI/CD automation, containerized pipelines, and optimized image build processes.",
-        "Created monitoring dashboards for real-time visibility into delivery metrics and operational health."
+        "Reduced deployment time by 75% through CI/CD improvements and containerized build pipelines.",
+        "Worked on AWS deployment infrastructure using Nomad, Consul, and Vault.",
       ],
       skills:
         "AWS, Docker, Nomad, Consul, Vault, CI/CD",
@@ -70,23 +84,47 @@ export const siteConfig = {
 
   project: [
     {
-      name: "Open Fiesta",
-      link: "https://open-fiesta.com",
-      period: "Aug 2025",
+      name: "Zeppy",
+      link: "https://github.com/lokeswaran-aj/zeppy",
+      period: "Feb 2026",
+      summary: "A multilingual voice agent that calls businesses in parallel and compares the answers.",
+      recognition: "2nd Prize · Google DeepMind × Cerebral Valley · $30,000 in AI credits",
       descriptions: [
-        "AI chat platform with 200+ models such as Gemini, Claude, Perplexity, DeepSeek, Grok, OpenAI, etc., allowing real-time side-by-side comparison and image generation.",
-        "Supports bring-your-own-key via OpenRouter, Vercel AI Gateway, and ML APIs. Reached 500+ active users within weeks, fully open-source."
+        "Describe what you need once. Zeppy calls businesses in parallel, holds real-time conversations in their preferred language, and returns a summary to help you compare the options.",
+        "Built with my teammate at the Gemini 3 Bengaluru Hackathon, where we won second prize and $30,000 in Gemini AI credits among 80+ teams.",
+      ],
+      skills: "Gemini Realtime API, LiveKit, Twilio, Next.js, PostgreSQL",
+    },
+    {
+      name: "OpenCut",
+      link: "https://github.com/lokeswaran-aj/opencut",
+      period: "Mar 2026",
+      summary: "Turn a topic into a researched, narrated video with a live preview and MP4 export.",
+      descriptions: [
+        "Built an AI video creation workflow that turns a topic or URL into a researched script, generated narration, and an animated video.",
+        "Connected Firecrawl research and ElevenLabs voice generation to a Remotion preview and export pipeline, so users can iterate in chat before downloading an MP4.",
+      ],
+      skills: "Next.js, TypeScript, Gemini, Firecrawl, ElevenLabs, Remotion, PostgreSQL, Cloudflare R2",
+    },
+    {
+      name: "Open Fiesta",
+      link: "https://github.com/lokeswaran-aj/open-fiesta",
+      period: "Aug 2025",
+      summary: "An open-source workspace for comparing AI model responses side by side.",
+      descriptions: [
+        "Built an open-source AI chat workspace with access to 200+ models and real-time, side-by-side response comparison, helping users evaluate models on the same task.",
+        "Reached 800+ active users within the first few weeks. Supports bring-your-own-key access and image generation.",
       ],
       skills:
         "Next.js, Typescript, Tailwind CSS, Vercel AI SDK, Shadcn UI, Drizzle ORM, Postgres",
     },
     {
       name: "Not V0",
-      link: "https://notv0.dev",
+      link: "https://github.com/lokeswaran-aj/notv0.dev",
       period: "Jul 2025",
       descriptions: [
-        "Open-source alternative to v0.app that generates full Next.js apps from natural-language prompts with live preview and interactive chat-driven iteration.",
-        "Onboarded 100+ early users and introduced a sandbox execution environment enabling rapid prototype-to-production cycles."
+        "Built an open-source app builder that turns a natural-language prompt into a Next.js application, with live preview and chat-based iteration.",
+        "Used isolated E2B sandboxes to run generated applications and onboarded 100+ early users.",
       ],
       skills:
         "Next.js, Typescript, Supabase, Vercel AI SDK, E2B Sandbox, Tailwind CSS, Shadcn UI, Postgres",
@@ -96,17 +134,17 @@ export const siteConfig = {
       link: "https://github.com/Klavis-AI/klavis/pulls?q=+is%3Apr+author%3Alokeswaran-aj",
       period: "Jul 2025",
       descriptions: [
-        "Developed secure MCP servers for Airtable and monday.com enabling structured JSON-RPC tool execution for AI agents over HTTP/SSE."
+        "Contributed secure Airtable and monday.com MCP servers to Klavis, giving AI agents tools to interact with business data and workflows.",
       ],
       skills: "FastMCP, Python, Typescript",
     },
     {
       name: "AI Docs",
-      link: "https://aidocs.lokeswaran.dev",
+      link: "https://github.com/lokeswaran-aj/aidocs",
       period: "Jan 2025",
       descriptions: [
-        "AI-powered documentation assistant using RAG to answer Next.js queries with context awareness.",
-        "Fully deployed in production using AWS, Docker, Terraform, and orchestrated retrieval indexing."
+        "Built a documentation assistant that retrieves relevant Next.js documentation before generating an answer, connecting RAG and conversational search in a working application.",
+        "Deployed with AWS, Docker, and Terraform.",
       ],
       skills:
         "Next.js, LangGraph, RAG, Postgres, Docker, AWS, Terraform",

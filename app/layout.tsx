@@ -16,7 +16,7 @@ export const metadata: Metadata = {
     process.env.NEXT_PUBLIC_APP_URL ?? siteConfig.links.url
   ),
   title: {
-    default: siteConfig.name,
+    default: `${siteConfig.name} | AI Engineer`,
     template: `%s | ${siteConfig.author}`,
   },
   description: siteConfig.description,
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
     canonical: siteConfig.links.url,
   },
   openGraph: {
-    title: siteConfig.name,
+    title: `${siteConfig.name} | AI Engineer`,
     description: siteConfig.description,
     url: siteConfig.links.url,
     siteName: siteConfig.name,
@@ -43,7 +43,8 @@ export const metadata: Metadata = {
     },
   },
   twitter: {
-    title: siteConfig.name,
+    title: `${siteConfig.name} | AI Engineer`,
+    description: siteConfig.description,
     card: 'summary_large_image',
   },
   verification: {

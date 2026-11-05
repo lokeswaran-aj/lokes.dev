@@ -1,111 +1,68 @@
 import { NextRequest, NextResponse } from "next/server";
+import Parser from "rss-parser";
+import type { BlogPost } from "@/lib/rss";
 
-const HASHNODE_GQL_ENDPOINT = "https://gql.hashnode.com";
-const BLOG_HOST = "blog.lokes.dev";
+export const dynamic = "force-dynamic";
+
+const BLOG_FEED_URL = "https://blog.lokes.dev/rss.xml";
+const parser = new Parser();
 
 let cachedData: { posts: BlogPost[]; timestamp: number } | null = null;
 const CACHE_DURATION = 60 * 60 * 1000;
 
 function invalidateCache() {
-  console.log("[Hashnode API] Cache invalidated");
+  console.log("[RSS] Cache invalidated");
   cachedData = null;
 }
 
-type BlogPost = {
-  title: string;
-  description: string;
-  link: string;
-  pubDate: string;
-  guid: string;
-};
-
-const POSTS_QUERY = `
-  query GetPosts($host: String!) {
-    publication(host: $host) {
-      posts(first: 10) {
-        edges {
-          node {
-            id
-            title
-            brief
-            slug
-            publishedAt
-            url
-          }
-        }
-      }
-    }
-  }
-`;
-
 export async function GET() {
   if (cachedData && Date.now() - cachedData.timestamp < CACHE_DURATION) {
-    console.log("[Hashnode API] Returning cached data");
+    console.log("[RSS] Returning cached data");
     return NextResponse.json(cachedData.posts);
   }
 
-  console.log("[Hashnode API] Fetching from GraphQL API...");
+  console.log("[RSS] Fetching blog feed...");
 
   try {
-    const response = await fetch(HASHNODE_GQL_ENDPOINT, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        query: POSTS_QUERY,
-        variables: { host: BLOG_HOST },
-      }),
+    const response = await fetch(BLOG_FEED_URL, {
+      cache: "no-store",
+      signal: AbortSignal.timeout(10_000),
     });
 
-    console.log(`[Hashnode API] Response status: ${response.status}`);
-
     if (!response.ok) {
-      if (response.status === 429 && cachedData) {
-        console.log("[Hashnode API] Rate limited, returning stale cache");
-        return NextResponse.json(cachedData.posts);
-      }
-      return NextResponse.json(
-        { error: `Failed to fetch: ${response.status}` },
-        { status: response.status }
-      );
+      throw new Error(`Blog feed returned HTTP ${response.status}`);
     }
 
-    const data = await response.json();
-
-    if (data.errors) {
-      console.error("[Hashnode API] GraphQL errors:", data.errors);
-      if (cachedData) {
-        return NextResponse.json(cachedData.posts);
+    const feed = await parser.parseString(await response.text());
+    const posts: BlogPost[] = feed.items.slice(0, 10).map((item) => {
+      if (!item.title || !item.link) {
+        throw new Error("Blog feed item is missing its title or link");
       }
-      return NextResponse.json({ error: "GraphQL error" }, { status: 500 });
-    }
+      return {
+        title: item.title,
+        description: item.contentSnippet || item.summary || "",
+        link: item.link,
+        pubDate: item.isoDate || item.pubDate || "",
+        guid: item.guid || item.link,
+      };
+    });
 
-    const edges = data?.data?.publication?.posts?.edges || [];
-    const posts: BlogPost[] = edges.map((edge: any) => ({
-      title: edge.node.title || "",
-      description: edge.node.brief || "",
-      link: edge.node.url || `https://${BLOG_HOST}/${edge.node.slug}`,
-      pubDate: edge.node.publishedAt || "",
-      guid: edge.node.id || edge.node.slug,
-    }));
-
-    console.log(`[Hashnode API] Fetched ${posts.length} posts`);
+    console.log(`[RSS] Fetched ${posts.length} posts`);
 
     cachedData = { posts, timestamp: Date.now() };
 
     return NextResponse.json(posts);
   } catch (error) {
-    console.error("[Hashnode API] Error:", error);
+    console.error("[RSS] Error:", error);
 
     if (cachedData) {
-      console.log("[Hashnode API] Error, returning stale cache");
+      console.log("[RSS] Error, returning stale cache");
       return NextResponse.json(cachedData.posts);
     }
 
     return NextResponse.json(
       { error: "Failed to fetch posts" },
-      { status: 500 }
+      { status: 502 }
     );
   }
 }
