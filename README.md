@@ -10,11 +10,14 @@ This is my [personal website](https://lokeswaran.dev) built with [Next.js](https
 
 ## Running Locally
 
-This application requires Next.js 14.
+This application uses Next.js 14 and Node.js 26. The Node.js version is pinned
+in `package.json` for Vercel and `.nvmrc` for local development.
 
 ```bash
 git clone https://github.com/lokeswaran-aj/lokes.dev.git
 cd lokes.dev
+nvm install
+nvm use
 pnpm install
 pnpm dev
 ```
