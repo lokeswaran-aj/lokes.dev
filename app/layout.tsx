@@ -8,6 +8,7 @@ import Header from '@/components/Header'
 import { Analytics } from '@vercel/analytics/react'
 import Providers from '@/components/Providers'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import Ambient from '@/components/motion/Ambient'
 
 const FiraCode = Fira_Code({ subsets: ['latin'], variable: '--fira-code' })
 
@@ -75,6 +76,7 @@ export default function RootLayout({
         )}
       >
         <Providers>
+          <Ambient />
           <main className='flex flex-col py-20 min-h-[calc(100dvh-3rem)]'>
             {children}
           </main>

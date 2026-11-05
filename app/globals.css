@@ -40,9 +40,63 @@
   --motion-feedback: 220ms;
 }
 
-/* A single entrance keeps every section on the same timeline. */
-.page-arrive {
-  animation: page-arrive 240ms var(--ease-settle) backwards;
+/* Ambient layer: fixed behind content, transform/opacity only. */
+.ambient {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+}
+.ambient-glow {
+  position: absolute;
+  width: 46rem;
+  height: 46rem;
+  border-radius: 50%;
+  opacity: 0.55;
+  will-change: transform;
+}
+.ambient-glow--a {
+  top: -26rem;
+  left: 50%;
+  margin-left: -34rem;
+  background: radial-gradient(closest-side, hsl(var(--primary) / 0.22), transparent);
+  animation: drift-a 22s ease-in-out infinite alternate;
+}
+.ambient-glow--b {
+  top: -20rem;
+  left: 50%;
+  margin-left: -8rem;
+  background: radial-gradient(closest-side, hsl(var(--secondary) / 0.18), transparent);
+  animation: drift-b 26s ease-in-out infinite alternate;
+}
+.dark .ambient-glow { opacity: 0.8; }
+.cursor-spotlight {
+  position: absolute;
+  top: -14rem;
+  left: -14rem;
+  width: 28rem;
+  height: 28rem;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, hsl(var(--primary) / 0.08), transparent);
+}
+.dark .cursor-spotlight {
+  background: radial-gradient(closest-side, hsl(var(--primary) / 0.11), transparent);
+}
+.ambient-grain {
+  position: absolute;
+  inset: 0;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.scroll-progress {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  height: 2px;
+  transform-origin: left;
+  background: linear-gradient(90deg, #93c5fd, #e2cbff, #f9a8d4);
+  pointer-events: none;
 }
 
 .gradient-frame {
@@ -61,7 +115,6 @@
 .gradient-frame:focus-visible::before,
 .company-link:focus-visible .gradient-frame::before { opacity: 1; }
 
-.nav-motion { animation: dock-arrive 650ms var(--ease-settle) backwards; }
 .nav-surface {
   position: relative;
   z-index: 1;
@@ -84,10 +137,7 @@
   border-radius: 999px;
   background: rgb(255 255 255 / 0.09);
   pointer-events: none;
-  transition: transform 420ms var(--ease-settle);
 }
-[data-active-index="1"] .nav-indicator { transform: translateX(76px); }
-[data-active-index="2"] .nav-indicator { transform: translateX(152px); }
 .nav-link, .theme-toggle {
   position: relative;
   z-index: 1;
@@ -179,6 +229,7 @@
   content: "";
   pointer-events: none;
 }
+.experience-entry[data-inview]::before { animation: dot-ping 900ms var(--ease-settle) 1; }
 .experience-entry::before {
   top: 7px;
   left: -2px;
@@ -194,9 +245,11 @@
   left: 0;
   width: 1px;
   background: hsl(var(--muted) / 0.15);
+  transform: scaleY(0);
   transform-origin: top;
-  animation: rail-arrive 850ms var(--ease-settle) backwards;
+  transition: transform 1100ms var(--ease-settle) 250ms;
 }
+.experience-entry[data-inview]::after { transform: scaleY(1); }
 .experience-entry:last-child::after { display: none; }
 .experience-entry:focus-within::before { background: hsl(var(--primary)); }
 @media (min-width: 640px) {
@@ -223,6 +276,14 @@
   transition: opacity var(--motion-feedback) ease-out;
 }
 .blog-entry:focus-visible::before { opacity: 1; }
+.blog-hover {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  border-radius: inherit;
+  background: hsl(var(--muted) / 0.07);
+  box-shadow: inset 0 0 0 1px hsl(var(--muted) / 0.08);
+}
 .blog-results { min-height: 11rem; }
 
 @media (hover: hover) and (pointer: fine) {
@@ -236,25 +297,25 @@
   .inline-link:hover::after { transform: scaleX(1); }
   .back-link:hover svg { transform: translateX(-3px); }
   .experience-entry:hover::before { background: hsl(var(--primary)); }
-  .blog-entry:hover::before { opacity: 1; }
   .blog-entry:hover h4 { transform: translateX(3px); }
 }
 
-@keyframes page-arrive {
-  from { opacity: 0; }
-  to { opacity: 1; }
+@keyframes drift-a {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(9rem, 5rem, 0) scale(1.15); }
 }
-@keyframes dock-arrive {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes drift-b {
+  from { transform: translate3d(0, 0, 0) scale(1.1); }
+  to { transform: translate3d(-10rem, 7rem, 0) scale(0.95); }
+}
+@keyframes dot-ping {
+  0% { transform: scale(1); }
+  40% { transform: scale(2.2); background: hsl(var(--primary)); }
+  100% { transform: scale(1); }
 }
 @keyframes orbit-arrive {
   from { opacity: 0; transform: rotate(-100deg); }
   to { opacity: 1; transform: rotate(0deg); }
-}
-@keyframes rail-arrive {
-  from { transform: scaleY(0); }
-  to { transform: scaleY(1); }
 }
 @keyframes voice-wave {
   0%, 100% { transform: scaleY(var(--wave-rest)); }
@@ -262,9 +323,10 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .page-arrive, .nav-motion, .portrait-orbit, .voice-accent > span,
-  .experience-entry::after { animation: none !important; }
-  .nav-indicator, .social-link, .company-badge, .portrait-orbit,
+  .portrait-orbit, .voice-accent > span, .ambient-glow,
+  .experience-entry::before { animation: none !important; }
+  .experience-entry::after { transform: none; transition: none !important; }
+  .social-link, .company-badge, .portrait-orbit,
   .inline-link svg, .inline-link::after, .back-link svg, .blog-entry h4,
   .blog-entry svg, .nav-link, .motion-button { transition: none !important; }
   .social-link:hover, .social-link:active, .company-link:hover .company-badge,
@@ -273,6 +335,14 @@
   .blog-entry:hover h4 { transform: none; }
   .blog-skeleton { animation: none; }
 }
+
+/* Theme switch: JS clips the new snapshot open as a circle; disable the default cross-fade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+::view-transition-new(root) { z-index: 1; }
 
 ::selection { background: hsl(var(--primary) / 0.24); color: hsl(var(--foreground)); }
 a:focus-visible, button:focus-visible {

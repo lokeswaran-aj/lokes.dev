@@ -6,6 +6,9 @@ import Heading from "./ui/Heading"
 import LogoLinks from "./ui/LogoLink"
 import Email from "./ui/email"
 import BadgeAnimatedGradientBorder from "./ui/BadgeAnimatedGradientBorder"
+import SplitText from "./motion/SplitText"
+import { Reveal, Stagger, StaggerItem } from "./motion/primitives"
+import PortraitEntrance from "./motion/PortraitEntrance"
 
 const Hero = () => {
   const {
@@ -22,7 +25,7 @@ const Hero = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-start">
-        <div className="mb-3">
+        <PortraitEntrance className="mb-3">
           <div className="portrait-motion relative size-16">
             <span className="portrait-orbit" aria-hidden="true" />
             <Image
@@ -37,56 +40,66 @@ const Hero = () => {
               <span /><span /><span /><span /><span />
             </span>
           </div>
-        </div>
-        <h1 className="text-xl font-bold text-balance text-center">{name}</h1>
-        <p className="text-lg font-medium text-muted/80 text-center text-balance">
-          {role}
-        </p>
+        </PortraitEntrance>
+        <SplitText text={name} delay={0.08} className="text-xl font-bold text-balance text-center" />
+        <Reveal delay={0.2} immediate>
+          <p className="text-lg font-medium text-muted/80 text-center text-balance">
+            {role}
+          </p>
+        </Reveal>
         <div className="mt-3">
           <LogoLinks />
         </div>
       </div>
-      <div className="mt-14">
-        <Heading text="About me" />
+      <Stagger className="mt-14" delay={0.4} gap={0.07} immediate>
+        <StaggerItem>
+          <Heading text="About me" />
+        </StaggerItem>
         <div className="space-y-4 text-muted/80 leading-relaxed text-pretty">
-          <p>
-            I&apos;m an AI Engineer at{" "}
-            <BadgeAnimatedGradientBorder
-              href={currentCompanyUrl}
-              imageUrl={currentCompanyImage}
-              imageAlt={currentCompany}
-              text={currentCompany}
-            />{" "}
-            building voice AI products, from the conversation itself to the
-            systems that keep it running.
-          </p>
-          <p>
-            I built and launched{" "}
-            <LinkText
-              href={currentProduct.url}
-              text={currentProduct.name}
-              className="text-primary"
-            />
-            , a multilingual AI astrology product that has reached 1.1M+ unique
-            callers. My work connects voice agents, personalized tools, and
-            persistent memory with the APIs and background processing behind them.
-          </p>
-          <p>
-            Before that, I spent four years at{" "}
-            <BadgeAnimatedGradientBorder
-              href={previousCompany.url}
-              imageUrl={previousCompany.image}
-              imageAlt={previousCompany.name}
-              text={previousCompany.name}
-            />{" "}
-            building payment
-            systems, modernizing commerce platforms, and helping teams bring AI
-            agents into software delivery. I still learn by shipping, through
-            open-source projects and hackathons.
-          </p>
+          <StaggerItem>
+            <p>
+              I&apos;m an AI Engineer at{" "}
+              <BadgeAnimatedGradientBorder
+                href={currentCompanyUrl}
+                imageUrl={currentCompanyImage}
+                imageAlt={currentCompany}
+                text={currentCompany}
+              />{" "}
+              building voice AI products, from the conversation itself to the
+              systems that keep it running.
+            </p>
+          </StaggerItem>
+          <StaggerItem>
+            <p>
+              I built and launched{" "}
+              <LinkText
+                href={currentProduct.url}
+                text={currentProduct.name}
+                className="text-primary"
+              />
+              , a multilingual AI astrology product that has reached 1.1M+ unique
+              callers. My work connects voice agents, personalized tools, and
+              persistent memory with the APIs and background processing behind them.
+            </p>
+          </StaggerItem>
+          <StaggerItem>
+            <p>
+              Before that, I spent four years at{" "}
+              <BadgeAnimatedGradientBorder
+                href={previousCompany.url}
+                imageUrl={previousCompany.image}
+                imageAlt={previousCompany.name}
+                text={previousCompany.name}
+              />{" "}
+              building payment
+              systems, modernizing commerce platforms, and helping teams bring AI
+              agents into software delivery. I still learn by shipping, through
+              open-source projects and hackathons.
+            </p>
+          </StaggerItem>
         </div>
-      </div>
-      <div className="mt-14">
+      </Stagger>
+      <Reveal className="mt-14" delay={0.7} immediate>
         <Heading text="Contact" />
         <p className="text-muted/80">
           Connect with me on{" "}
@@ -105,7 +118,7 @@ const Hero = () => {
           />
           , or email me directly at <Email />.
         </p>
-      </div>
+      </Reveal>
     </>
   )
 }

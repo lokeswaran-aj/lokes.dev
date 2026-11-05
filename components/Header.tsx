@@ -5,6 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import React from "react"
 import ModeToggler from "./ModeToggler"
+import { motion } from "motion/react"
 
 const Header = () => {
   const pathname = usePathname()
@@ -15,9 +16,21 @@ const Header = () => {
   ]
   const activeIndex = Math.max(0, pages.findIndex(({ href }) => pathname === href))
   return (
-    <nav aria-label="Main navigation" className="nav-motion gradient-frame relative isolate inline-flex rounded-full p-px">
-      <div className="nav-surface" data-active-index={activeIndex}>
-        <span className="nav-indicator" aria-hidden="true" />
+    <motion.nav
+      aria-label="Main navigation"
+      className="gradient-frame relative isolate inline-flex rounded-full p-px"
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ type: "spring", stiffness: 260, damping: 26, delay: 0.3 }}
+    >
+      <div className="nav-surface">
+        <motion.span
+          className="nav-indicator"
+          aria-hidden="true"
+          initial={false}
+          animate={{ x: activeIndex * 76 }}
+          transition={{ type: "spring", stiffness: 380, damping: 30 }}
+        />
         {pages.map(({ href, label }) => (
           <Link
             key={href}
@@ -30,7 +43,7 @@ const Header = () => {
         ))}
         <ModeToggler />
       </div>
-    </nav>
+    </motion.nav>
   )
 }
 

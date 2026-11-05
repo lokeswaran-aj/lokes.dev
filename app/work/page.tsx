@@ -3,6 +3,7 @@ import BackButton from "@/components/ui/BackButton"
 import WorkExperience from "@/components/WorkExperience"
 import type { Metadata } from "next"
 import React from "react"
+import SplitText from "@/components/motion/SplitText"
 
 export const metadata: Metadata = {
   title: "Work",
@@ -14,7 +15,7 @@ const Work = () => {
   return (
     <section>
       <BackButton link="/" />
-      <h1 className="text-2xl font-bold mb-8 text-balance">Work & projects</h1>
+      <SplitText text="Work & projects" className="text-2xl font-bold mb-8 text-balance" />
       <div className="flex flex-col gap-14">
         <WorkExperience />
         <hr />

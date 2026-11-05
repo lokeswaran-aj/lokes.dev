@@ -6,11 +6,16 @@ import Icons from "@/components/ui/Icons";
 import { fetchBlogPosts, formatDate, type BlogPost } from "@/lib/rss";
 import Link from "next/link";
 import { useCallback, useEffect, useState } from "react";
+import { AnimatePresence, motion } from "motion/react";
+import { EASE_OUT, riseIn } from "@/components/motion/primitives";
+
+const MotionLink = motion.create(Link);
 
 export default function Blog() {
   const [posts, setPosts] = useState<BlogPost[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [hovered, setHovered] = useState<string | null>(null);
 
   const loadPosts = useCallback((signal?: AbortSignal) => {
     return fetchBlogPosts(signal)
@@ -84,30 +89,57 @@ export default function Blog() {
         ) : posts.length === 0 ? (
           <p className="text-muted">No posts yet. Check back soon!</p>
         ) : (
-          posts.map((post) => (
-            <Link
-              key={post.guid}
-              href={post.link}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="blog-entry isolate"
-            >
-              <div className="flex flex-col space-y-1">
-                <div className="flex items-center gap-2">
-                  <h4>
-                    {post.title}
-                    <Icons.arrow />
-                  </h4>
+          <motion.div
+            initial="hidden"
+            animate="show"
+            variants={{ hidden: {}, show: { transition: { staggerChildren: 0.06 } } }}
+            onMouseLeave={() => setHovered(null)}
+          >
+            {posts.map((post) => (
+              <MotionLink
+                key={post.guid}
+                href={post.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="blog-entry isolate"
+                variants={riseIn}
+                onMouseEnter={() => setHovered(post.guid)}
+              >
+                <AnimatePresence>
+                  {hovered === post.guid && (
+                    <motion.span
+                      layoutId="blog-hover"
+                      aria-hidden="true"
+                      className="blog-hover"
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1 }}
+                      exit={{ opacity: 0 }}
+                      transition={{
+                        type: "spring",
+                        stiffness: 420,
+                        damping: 36,
+                        opacity: { duration: 0.15, ease: EASE_OUT },
+                      }}
+                    />
+                  )}
+                </AnimatePresence>
+                <div className="flex flex-col space-y-1">
+                  <div className="flex items-center gap-2">
+                    <h4>
+                      {post.title}
+                      <Icons.arrow />
+                    </h4>
+                  </div>
+                  <p className="text-muted line-clamp-2 text-ellipsis no-underline hover:no-underline">
+                    {post.description}
+                  </p>
+                  <span className="text-xs text-muted/70">
+                    {formatDate(post.pubDate)}
+                  </span>
                 </div>
-                <p className="text-muted line-clamp-2 text-ellipsis no-underline hover:no-underline">
-                  {post.description}
-                </p>
-                <span className="text-xs text-muted/70">
-                  {formatDate(post.pubDate)}
-                </span>
-              </div>
-            </Link>
-          ))
+              </MotionLink>
+            ))}
+          </motion.div>
         )}
       </div>
     </div>

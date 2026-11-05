@@ -28,7 +28,7 @@ const Email = () => {
         </button>
       </TooltipTrigger>
       <TooltipContent>
-        <p>{tooltipMessage}</p>
+        <span>{tooltipMessage}</span>
       </TooltipContent>
     </Tooltip>
   )
