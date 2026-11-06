@@ -4,8 +4,9 @@ import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTran
 import { useEffect } from "react"
 
 /**
- * Site-wide ambience: drifting gradient glows, a cursor spotlight, and a
- * scroll progress hairline. Everything here animates transform/opacity only.
+ * Site-wide ambience: a neutral cursor spotlight, film grain, and a
+ * scroll progress hairline. Monochrome to keep the matte look; everything
+ * here animates transform/opacity only.
  */
 export default function Ambient() {
   const reduce = useReducedMotion()
@@ -33,8 +34,6 @@ export default function Ambient() {
     <>
       <motion.div aria-hidden="true" className="scroll-progress" style={{ scaleX: progress, opacity: progressOpacity }} />
       <div aria-hidden="true" className="ambient">
-        <span className="ambient-glow ambient-glow--a" />
-        <span className="ambient-glow ambient-glow--b" />
         <motion.span className="cursor-spotlight" style={{ x: sx, y: sy }} />
         <span className="ambient-grain" />
       </div>

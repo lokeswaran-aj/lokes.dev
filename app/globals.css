@@ -48,29 +48,6 @@
   overflow: hidden;
   pointer-events: none;
 }
-.ambient-glow {
-  position: absolute;
-  width: 46rem;
-  height: 46rem;
-  border-radius: 50%;
-  opacity: 0.55;
-  will-change: transform;
-}
-.ambient-glow--a {
-  top: -26rem;
-  left: 50%;
-  margin-left: -34rem;
-  background: radial-gradient(closest-side, hsl(var(--primary) / 0.22), transparent);
-  animation: drift-a 22s ease-in-out infinite alternate;
-}
-.ambient-glow--b {
-  top: -20rem;
-  left: 50%;
-  margin-left: -8rem;
-  background: radial-gradient(closest-side, hsl(var(--secondary) / 0.18), transparent);
-  animation: drift-b 26s ease-in-out infinite alternate;
-}
-.dark .ambient-glow { opacity: 0.8; }
 .cursor-spotlight {
   position: absolute;
   top: -14rem;
@@ -78,10 +55,10 @@
   width: 28rem;
   height: 28rem;
   border-radius: 50%;
-  background: radial-gradient(closest-side, hsl(var(--primary) / 0.08), transparent);
+  background: radial-gradient(closest-side, hsl(var(--foreground) / 0.04), transparent);
 }
 .dark .cursor-spotlight {
-  background: radial-gradient(closest-side, hsl(var(--primary) / 0.11), transparent);
+  background: radial-gradient(closest-side, hsl(var(--foreground) / 0.05), transparent);
 }
 .ambient-grain {
   position: absolute;
@@ -95,7 +72,7 @@
   z-index: 50;
   height: 2px;
   transform-origin: left;
-  background: linear-gradient(90deg, #93c5fd, #e2cbff, #f9a8d4);
+  background: hsl(var(--foreground) / 0.5);
   pointer-events: none;
 }
 
@@ -300,14 +277,6 @@
   .blog-entry:hover h4 { transform: translateX(3px); }
 }
 
-@keyframes drift-a {
-  from { transform: translate3d(0, 0, 0) scale(1); }
-  to { transform: translate3d(9rem, 5rem, 0) scale(1.15); }
-}
-@keyframes drift-b {
-  from { transform: translate3d(0, 0, 0) scale(1.1); }
-  to { transform: translate3d(-10rem, 7rem, 0) scale(0.95); }
-}
 @keyframes dot-ping {
   0% { transform: scale(1); }
   40% { transform: scale(2.2); background: hsl(var(--primary)); }
@@ -323,7 +292,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .portrait-orbit, .voice-accent > span, .ambient-glow,
+  .portrait-orbit, .voice-accent > span,
   .experience-entry::before { animation: none !important; }
   .experience-entry::after { transform: none; transition: none !important; }
   .social-link, .company-badge, .portrait-orbit,

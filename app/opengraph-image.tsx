@@ -11,8 +11,9 @@ export const contentType = 'image/png'
 const BG = 'hsl(0 0% 7%)'
 const FG = 'hsl(0 0% 100%)'
 const MUTED = 'hsl(0 0% 80% / 0.8)'
-const PRIMARY = 'hsl(210 100% 52%)'
-const SECONDARY = 'hsl(349 85% 66%)'
+// One matte neutral; no colour accents beyond the portrait itself.
+const LINE = 'hsl(0 0% 100% / 0.14)'
+const SURFACE = 'hsl(0 0% 11%)'
 
 /** Satori spaces Geist words unevenly, so lay words out with an explicit flex gap. */
 function Words({ text, gap, style }: { text: string; gap: string; style: React.CSSProperties }) {
@@ -48,27 +49,10 @@ export default async function Image() {
           justifyContent: 'center',
           padding: '0 96px',
           background: BG,
-          // Same two glows as the site's ambient layer.
-          backgroundImage: [
-            'radial-gradient(circle at 18% -10%, hsl(210 100% 52% / 0.30), transparent 55%)',
-            'radial-gradient(circle at 85% -5%, hsl(349 85% 66% / 0.24), transparent 50%)',
-          ].join(', '),
           color: FG,
           fontFamily: 'Geist',
         }}
       >
-        {/* Scroll-progress hairline. */}
-        <div
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: '100%',
-            height: 4,
-            backgroundImage: `linear-gradient(90deg, ${PRIMARY}, ${SECONDARY})`,
-          }}
-        />
-
         <div style={{ display: 'flex', alignItems: 'center', gap: 44 }}>
           {/* Portrait with orbit ring and voice pill, as in the hero. */}
           <div style={{ display: 'flex', position: 'relative', width: 168, height: 168 }}>
@@ -80,9 +64,8 @@ export default async function Image() {
                 width: 192,
                 height: 192,
                 borderRadius: 9999,
-                border: '3px solid hsl(0 0% 80% / 0.15)',
-                borderTopColor: 'hsl(349 85% 66% / 0.8)',
-                borderRightColor: 'hsl(210 100% 52% / 0.8)',
+                border: `3px solid ${LINE}`,
+                borderTopColor: 'hsl(0 0% 100% / 0.55)',
               }}
             />
             <img src={avatarSrc} width={168} height={168} style={{ borderRadius: 9999 }} alt="" />
@@ -98,12 +81,12 @@ export default async function Image() {
                 width: 70,
                 height: 44,
                 borderRadius: 22,
-                border: '2px solid hsl(210 100% 52% / 0.45)',
-                background: '#030712',
+                border: `2px solid ${LINE}`,
+                background: SURFACE,
               }}
             >
               {[0.45, 0.8, 1, 0.65, 0.4].map((h, i) => (
-                <div key={i} style={{ width: 5, height: 24 * h, borderRadius: 3, background: '#93c5fd' }} />
+                <div key={i} style={{ width: 5, height: 24 * h, borderRadius: 3, background: 'hsl(0 0% 85%)' }} />
               ))}
             </div>
           </div>
@@ -125,14 +108,14 @@ export default async function Image() {
             gap: 12,
             padding: '12px 22px',
             borderRadius: 9999,
-            border: '1.5px solid hsl(0 0% 100% / 0.14)',
-            background: 'hsl(0 0% 100% / 0.04)',
+            border: `1.5px solid ${LINE}`,
+            background: SURFACE,
             fontFamily: 'Geist Mono',
             fontSize: 26,
             color: FG,
           }}
         >
-          <div style={{ width: 10, height: 10, borderRadius: 9999, background: SECONDARY }} />
+          <div style={{ width: 10, height: 10, borderRadius: 9999, background: MUTED }} />
           {host}
         </div>
       </div>
